@@ -1,7 +1,7 @@
 randomize();
 
 TimePassed = 0.0;
-TimeMax = 1000000.0 / 2;
+TimeMax = 1000000.0 / 4;
 
 PreviousKeypress = false;
 
