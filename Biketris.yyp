@@ -42,7 +42,7 @@
             "Key": "169afc3e-f8a0-4c23-9f27-3b5c049b7252",
             "Value": {
                 "id": "a73ded1d-fc56-4655-9f50-23d17dec7a5c",
-                "resourcePath": "objects\\testObj\\testObj.yy",
+                "resourcePath": "objects\\blockObj\\blockObj.yy",
                 "resourceType": "GMObject"
             }
         },
@@ -103,6 +103,14 @@
             }
         },
         {
+            "Key": "64793539-3122-4024-a2f1-d254aa1b5e16",
+            "Value": {
+                "id": "476120a2-ac3c-495d-a2d0-096c341245bb",
+                "resourcePath": "sprites\\bikerSpr\\bikerSpr.yy",
+                "resourceType": "GMSprite"
+            }
+        },
+        {
             "Key": "6c9465c4-e9a6-4cba-90e0-126ff00e2ed1",
             "Value": {
                 "id": "859dd86d-a5f9-4b4c-87f5-83217199fdd8",
@@ -114,7 +122,7 @@
             "Key": "7299eba4-cf7b-4888-8e86-12403ed57937",
             "Value": {
                 "id": "0b4eeb97-b813-4dbd-bf78-6f12979ff3af",
-                "resourcePath": "sprites\\testSpr\\testSpr.yy",
+                "resourcePath": "sprites\\blocksSpr\\blocksSpr.yy",
                 "resourceType": "GMSprite"
             }
         },
@@ -148,6 +156,14 @@
                 "id": "4f72a41b-effd-4c25-9f25-dd43838afdc4",
                 "resourcePath": "options\\ios\\options_ios.yy",
                 "resourceType": "GMiOSOptions"
+            }
+        },
+        {
+            "Key": "887eaa4d-413b-484a-ad35-bd28a358951b",
+            "Value": {
+                "id": "76d79b9c-1e77-4674-b463-2cee0c008d7b",
+                "resourcePath": "sprites\\bikerCrashSpr\\bikerCrashSpr.yy",
+                "resourceType": "GMSprite"
             }
         },
         {
@@ -220,6 +236,14 @@
                 "id": "60b1f9a8-edf9-4cde-8ea4-3382f5da8211",
                 "resourcePath": "options\\windows\\options_windows.yy",
                 "resourceType": "GMWindowsOptions"
+            }
+        },
+        {
+            "Key": "cfc43298-f8e3-499c-927d-d94b1fa30b27",
+            "Value": {
+                "id": "34dd3437-9f3e-41ff-9149-31fea8ef27a0",
+                "resourcePath": "objects\\bikerObj\\bikerObj.yy",
+                "resourceType": "GMObject"
             }
         },
         {
