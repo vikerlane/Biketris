@@ -142,35 +142,50 @@ if (!Crash) {
 					}
 				}
 			}
+			
+			// if bottom row, crash
+			// else if next is block
+			//    if not up, crash, else go up
+			// if bottom is solid
+			//    if up, go normal
+			
+			if (biker.y >= room_height) {
+				Crash = true;
+			} else if (Next != -1) {
+				if (biker.sprite_index == bikerBoostSpr) {
+					BikerY = -1;
+				} else {
+					Crash = true;
+				}
+			} else if (NextAfter != -1) {
+				biker.sprite_index = bikerBoostSpr;
+			} else if (NextBelow1 == -1 && NextBelow2 == -1) {
+				biker.sprite_index = bikerSpr;
+				BikerY = 1;
+			} else if (NextBelow1 != -1) {
+				biker.sprite_index = bikerSpr;
+			}
+			
 			/* show_debug_message(string(NextBelow1));
 			show_debug_message(string(NextBelow2));
 			show_debug_message(string(NextBelow3));
 			show_debug_message(string(NextBlockX00));
 			show_debug_message(string(NextBlockY2));
 			game_end(); */
-			if (biker.y >= room_height) {
+			/*if (biker.y >= room_height) {
 				Crash = true;
 			} else if (Next != -1) {
 				Crash = true;
 			} else if (NextAfter != -1) {
-				BikerY = -3;
+				BikerY = -1;
+				biker.sprite_index = bikerBoostSpr;
 			} else if (NextBelow1 == -1 && NextBelow2 == -1) {
 				/*if (NextBelow3 != -1) {
 					Crash = true;
-				} else */ {
+				} else  {
 					BikerY = 4;
 				}
-			}
-		}
-		
-		if (BikerMovesLeft == 6) {
-			if (BikerY == 4) {
-				BikerY = 0;
-			}
-		} else if (BikerMovesLeft == 4) {
-			if (BikerY == -3) {
-				BikerY = 1;
-			}
+			} */
 		}
 	
 		if (Crash) {

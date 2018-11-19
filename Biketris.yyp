@@ -247,6 +247,14 @@
             }
         },
         {
+            "Key": "d9c44bd3-bd81-47df-87f5-3bb327cf18ab",
+            "Value": {
+                "id": "e4a20259-d45a-4da9-998b-d46eebbdb7cf",
+                "resourcePath": "sprites\\bikerBoostSpr\\bikerBoostSpr.yy",
+                "resourceType": "GMSprite"
+            }
+        },
+        {
             "Key": "dd6bc7d2-dd6d-44c9-8f3b-5f465dc77eec",
             "Value": {
                 "id": "146d66d2-c5fd-4b8e-96cc-b23f22689f14",

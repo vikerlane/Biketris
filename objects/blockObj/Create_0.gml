@@ -1,4 +1,4 @@
-image_speed = 0;
+biimage_speed = 0;
 
 /*
 if (irandom_range(0, 2) == 1) {
