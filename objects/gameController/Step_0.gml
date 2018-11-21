@@ -51,20 +51,13 @@ if (!Crash) {
 			for (i=0; i < instance_number(blockObj); i++) {
 				Item = instance_find(blockObj, i);
 				if (Item.Shadow) {
-					Item.image_index -= 10;
+					Item.image_index = 0;
 					Item.Shadow = false;
 				} else if (Item.Inplay) {
 					Item.Inplay = false;
 					Item.image_alpha = 0;
 					Item.Destroyable = true;
 				}
-			}
-			
-			var Length = irandom_range(2, 3);
-			for (i = 0; i<Length; i++) {
-				Item = instance_create_layer(MinX + (8 * i), 8, "Instances", blockObj);
-				Item.image_index += 5;
-				Item.Inplay = true;
 			}
 		}
 	} else {
@@ -121,14 +114,14 @@ if (!Crash) {
 					case 0:
 						for (i=0; i<4; i++) {
 							Item = instance_create_layer(MinX + (i * 8), 2 * 8, "Instances", blockObj);
-							Item.image_index = 5;
+							Item.image_index = 1;
 							Item.Inplay = true;
 						}
 						break;
 					case 1:
 						for (i=0; i<4; i++) {
 							Item = instance_create_layer(MinX + (3 * 8), (1 + i) * 8, "Instances", blockObj);
-							Item.image_index = 5;
+							Item.image_index = 1;
 							Item.Inplay = true;
 						}
 						break;
@@ -138,7 +131,7 @@ if (!Crash) {
 				for (i=0; i<2; i++) {
 					for (j=0; j<2; j++) {
 						Item = instance_create_layer(MinX + (i * 8), (2 + j) * 8, "Instances", blockObj);
-						Item.image_index = 5;
+						Item.image_index = 1;
 						Item.Inplay = true;
 					}
 				}
@@ -151,13 +144,13 @@ if (!Crash) {
 				if (PieceRotation == 0 || PieceRotation == 2) {
 					for (i=0; i<3; i++) {
 						Item = instance_create_layer(MinX + (i * 8), (2 * 8), "Instances", blockObj);
-						Item.image_index = 5;
+						Item.image_index = 1;
 						Item.Inplay = true;
 					}
 				} else {
 					for (i=0; i<3; i++) {
 						Item = instance_create_layer(MinX + (1 * 8), ((1 + i ) * 8), "Instances", blockObj);
-						Item.image_index = 5;
+						Item.image_index = 1;
 						Item.Inplay = true;
 					}
 				}
@@ -165,22 +158,22 @@ if (!Crash) {
 				switch (PieceRotation) {
 					case 0:
 						Item = instance_create_layer(MinX + (2 * 8), (3 * 8), "Instances", blockObj);
-						Item.image_index = 5;
+						Item.image_index = 1;
 						Item.Inplay = true;
 						break;
 					case 1:
 						Item = instance_create_layer(MinX + (0 * 8), (3 * 8), "Instances", blockObj);
-						Item.image_index = 5;
+						Item.image_index = 1;
 						Item.Inplay = true;
 						break;
 					case 2:
 						Item = instance_create_layer(MinX + (0 * 8), (1 * 8), "Instances", blockObj);
-						Item.image_index = 5;
+						Item.image_index = 1;
 						Item.Inplay = true;
 						break;
 					case 3:
 						Item = instance_create_layer(MinX + (2 * 8), (1 * 8), "Instances", blockObj);
-						Item.image_index = 5;
+						Item.image_index = 1;
 						Item.Inplay = true;
 						break;
 				}
@@ -193,13 +186,13 @@ if (!Crash) {
 				if (PieceRotation == 0 || PieceRotation == 2) {
 					for (i=0; i<3; i++) {
 						Item = instance_create_layer(MinX + (i * 8), (2 * 8), "Instances", blockObj);
-						Item.image_index = 5;
+						Item.image_index = 1;
 						Item.Inplay = true;
 					}
 				} else {
 					for (i=0; i<3; i++) {
 						Item = instance_create_layer(MinX + (1 * 8), ((1 + i ) * 8), "Instances", blockObj);
-						Item.image_index = 5;
+						Item.image_index = 1;
 						Item.Inplay = true;
 					}
 				}
@@ -207,22 +200,22 @@ if (!Crash) {
 				switch (PieceRotation) {
 					case 0:
 						Item = instance_create_layer(MinX + (0 * 8), (3 * 8), "Instances", blockObj);
-						Item.image_index = 5;
+						Item.image_index = 1;
 						Item.Inplay = true;
 						break;
 					case 1:
 						Item = instance_create_layer(MinX + (0 * 8), (1 * 8), "Instances", blockObj);
-						Item.image_index = 5;
+						Item.image_index = 1;
 						Item.Inplay = true;
 						break;
 					case 2:
 						Item = instance_create_layer(MinX + (2 * 8), (1 * 8), "Instances", blockObj);
-						Item.image_index = 5;
+						Item.image_index = 1;
 						Item.Inplay = true;
 						break;
 					case 3:
 						Item = instance_create_layer(MinX + (2 * 8), (3 * 8), "Instances", blockObj);
-						Item.image_index = 5;
+						Item.image_index = 1;
 						Item.Inplay = true;
 						break;
 				}
@@ -236,7 +229,7 @@ if (!Crash) {
 						for (i=0; i<2; i++) {
 							for (j=0; j<2; j++) {
 								Item = instance_create_layer(MinX + (((1-i)+j) * 8), (2 + i) * 8, "Instances", blockObj);
-								Item.image_index = 5;
+								Item.image_index = 1;
 								Item.Inplay = true;
 							}
 						}
@@ -245,7 +238,7 @@ if (!Crash) {
 						for (i=0; i<2; i++) {
 							for (j=0; j<2; j++) {
 								Item = instance_create_layer(MinX + ((1+i) * 8), (2 + i + j) * 8, "Instances", blockObj);
-								Item.image_index = 5;
+								Item.image_index = 1;
 								Item.Inplay = true;
 							}
 						}
@@ -260,13 +253,13 @@ if (!Crash) {
 				if (PieceRotation == 0 || PieceRotation == 2) {
 					for (i=0; i<3; i++) {
 						Item = instance_create_layer(MinX + (i * 8), (2 * 8), "Instances", blockObj);
-						Item.image_index = 5;
+						Item.image_index = 1;
 						Item.Inplay = true;
 					}
 				} else {
 					for (i=0; i<3; i++) {
 						Item = instance_create_layer(MinX + (1 * 8), ((1 + i ) * 8), "Instances", blockObj);
-						Item.image_index = 5;
+						Item.image_index = 1;
 						Item.Inplay = true;
 					}
 				}
@@ -274,26 +267,25 @@ if (!Crash) {
 				switch (PieceRotation) {
 					case 0:
 						Item = instance_create_layer(MinX + (1 * 8), (3 * 8), "Instances", blockObj);
-						Item.image_index = 5;
+						Item.image_index = 1;
 						Item.Inplay = true;
 						break;
 					case 1:
 						Item = instance_create_layer(MinX + (0 * 8), (2 * 8), "Instances", blockObj);
-						Item.image_index = 5;
+						Item.image_index = 1;
 						Item.Inplay = true;
 						break;
 					case 2:
 						Item = instance_create_layer(MinX + (1 * 8), (1 * 8), "Instances", blockObj);
-						Item.image_index = 5;
+						Item.image_index = 1;
 						Item.Inplay = true;
 						break;
 					case 3:
 						Item = instance_create_layer(MinX + (2 * 8), (2 * 8), "Instances", blockObj);
-						Item.image_index = 5;
+						Item.image_index = 1;
 						Item.Inplay = true;
 						break;
 				}
-				break;
 				break;
 			case 7:
 				if (PieceRotation == 0) {
@@ -304,7 +296,7 @@ if (!Crash) {
 						for (i=0; i<2; i++) {
 							for (j=0; j<2; j++) {
 								Item = instance_create_layer(MinX + ((i+j) * 8), (2 + i) * 8, "Instances", blockObj);
-								Item.image_index = 5;
+								Item.image_index = 1;
 								Item.Inplay = true;
 							}
 						}
@@ -313,7 +305,7 @@ if (!Crash) {
 						for (i=0; i<2; i++) {
 							for (j=0; j<2; j++) {
 								Item = instance_create_layer(MinX + ((1+i) * 8), ((2 - i) + j) * 8, "Instances", blockObj);
-								Item.image_index = 5;
+								Item.image_index = 1;
 								Item.Inplay = true;
 							}
 						}
@@ -354,7 +346,6 @@ if (!Crash) {
 			}
 			if (Item.x < -Item.sprite_width) {
 				instance_create_layer(room_width, (8+irandom(5)) * Item.sprite_height, "Instances", blockObj);
-				instance_create_layer(room_width, (8+irandom(5)) * Item.sprite_height, "Instances", blockObj);
 				Item.Destroyable = true;
 				Item.image_alpha = 0;
 			}
@@ -369,6 +360,9 @@ if (!Crash) {
 		// check if biker should react next step
 	
 		if (BikerMovesLeft < 1) {
+			Score += 10;
+			Fuel -= 1;
+
 			BikerMovesLeft = 8;
 			BikerY = 0;
 
@@ -410,7 +404,9 @@ if (!Crash) {
 			// if bottom is solid
 			//    if up, go normal
 			
-			if (biker.y >= room_height) {
+			if (Fuel < 1) {
+				Crash = true;
+			} else if (biker.y >= room_height) {
 				Crash = true;
 			} else if (Next != -1) {
 				if (biker.sprite_index == bikerBoostSpr) {
@@ -478,7 +474,7 @@ if (!Crash) {
 				var Pos = floor(Item.x / 8);
 				if (Item.Inplay) {
 					var ShadowBlock = instance_create_layer(Item.x, Item.y, "Instances", blockObj);
-					ShadowBlock.image_index = Item.image_index + 5;
+					ShadowBlock.image_index = 2;
 					ShadowBlock.Shadow = true;
 					if (Pos > 0 && Positions[Pos, 0] < Item.y) {
 						Positions[Pos, 0] = Item.y;

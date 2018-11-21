@@ -1,18 +1,18 @@
 {
-    "id": "cfc43298-f8e3-499c-927d-d94b1fa30b27",
+    "id": "37cc074b-7562-4e71-8937-3c1c754924f1",
     "modelName": "GMObject",
     "mvc": "1.0",
-    "name": "bikerObj",
+    "name": "cityscapeObj",
     "eventList": [
         {
-            "id": "adc3b03b-5603-43fb-aa66-3035b4d9bc75",
+            "id": "ef13f6df-9a95-473b-bf1f-c6472acd6bfe",
             "modelName": "GMEvent",
             "mvc": "1.0",
             "IsDnD": false,
             "collisionObjectId": "00000000-0000-0000-0000-000000000000",
             "enumb": 0,
             "eventtype": 0,
-            "m_owner": "cfc43298-f8e3-499c-927d-d94b1fa30b27"
+            "m_owner": "37cc074b-7562-4e71-8937-3c1c754924f1"
         }
     ],
     "maskSpriteId": "00000000-0000-0000-0000-000000000000",
@@ -33,6 +33,6 @@
     "physicsStartAwake": true,
     "properties": null,
     "solid": false,
-    "spriteId": "64793539-3122-4024-a2f1-d254aa1b5e16",
+    "spriteId": "4b8e340d-0921-47f9-ba23-c1383d88c9de",
     "visible": true
 }

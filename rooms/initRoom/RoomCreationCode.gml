@@ -1,6 +1,6 @@
 room_speed = 60;
 
-var Scale = 4;
+var Scale = 3;
 
 for (var i = 1; i <= room_last; i++) {
 	if (room_exists(i)) {

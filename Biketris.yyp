@@ -39,6 +39,14 @@
             }
         },
         {
+            "Key": "06ddb395-17e7-4179-9333-d769a0a419ee",
+            "Value": {
+                "id": "f0b1b15d-0d04-4249-ad7d-b363fb2e62a7",
+                "resourcePath": "sprites\\fuelSpr\\fuelSpr.yy",
+                "resourceType": "GMSprite"
+            }
+        },
+        {
             "Key": "169afc3e-f8a0-4c23-9f27-3b5c049b7252",
             "Value": {
                 "id": "a73ded1d-fc56-4655-9f50-23d17dec7a5c",
@@ -55,6 +63,14 @@
             }
         },
         {
+            "Key": "1a9a7742-e1e6-413b-8bc7-b9c40d174c61",
+            "Value": {
+                "id": "7384b10c-012c-4703-8d3c-eb833f40df2d",
+                "resourcePath": "fonts\\scoreFnt\\scoreFnt.yy",
+                "resourceType": "GMFont"
+            }
+        },
+        {
             "Key": "22ba8ec1-74c0-48cb-9065-a4f2879c0b5e",
             "Value": {
                 "id": "714715ef-4853-424c-b88c-76ae8625b24d",
@@ -63,11 +79,27 @@
             }
         },
         {
+            "Key": "37cc074b-7562-4e71-8937-3c1c754924f1",
+            "Value": {
+                "id": "1f8fb574-df06-4429-bec4-e741db111695",
+                "resourcePath": "objects\\cityscapeObj\\cityscapeObj.yy",
+                "resourceType": "GMObject"
+            }
+        },
+        {
             "Key": "4ab8dbd4-352c-405c-acd9-e1c72fdd9d74",
             "Value": {
                 "id": "230bfb44-5533-4586-aca4-f3cf65312b80",
                 "resourcePath": "views\\4ab8dbd4-352c-405c-acd9-e1c72fdd9d74.yy",
                 "resourceType": "GMFolder"
+            }
+        },
+        {
+            "Key": "4b8e340d-0921-47f9-ba23-c1383d88c9de",
+            "Value": {
+                "id": "7e12527a-4512-404e-bcaa-0b2bae75af07",
+                "resourcePath": "sprites\\cityscapeSpr\\cityscapeSpr.yy",
+                "resourceType": "GMSprite"
             }
         },
         {
