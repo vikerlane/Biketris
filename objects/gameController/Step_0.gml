@@ -2,12 +2,17 @@ TimePassed += delta_time;
 
 if (!Crash) {
 	var MoveInplay = 0;
-	var i, Item;
+	var i, j, Item;
 
 	var MaxX = 0;
 	var MinX = room_width;
 
+	var UpdatePiece = false;
 	var RecalculateShadow = true;
+	
+	if (Piece == -1) {
+		UpdatePiece = true;
+	}
 
 	for (i=0; i < instance_number(blockObj); i++) {
 		Item = instance_find(blockObj, i);
@@ -34,7 +39,13 @@ if (!Crash) {
 			if (MaxX < room_width - 16) {
 				MoveInplay = 8;
 			}
+		} else if (keyboard_check(vk_up)) {
+			PieceRotation += 1;
+			UpdatePiece = true;
+			PreviousKeypress = true;
 		} else if (keyboard_check(vk_down)) {
+			Piece = -1;
+			UpdatePiece = true;
 			RecalculateShadow = true;
 			PreviousKeypress = true;
 			for (i=0; i < instance_number(blockObj); i++) {
@@ -59,6 +70,256 @@ if (!Crash) {
 	} else {
 		if (keyboard_check(vk_nokey)) {
 			PreviousKeypress = false;
+		}
+	}
+	
+	if (UpdatePiece) {
+		for (i=0; i < instance_number(blockObj); i++) {
+			Item = instance_find(blockObj, i);
+			if (Item.Inplay || Item.Shadow) {
+				Item.Inplay = false;
+				Item.Shadow = false;
+				Item.Destroyable = true;
+				Item.image_alpha = 0;
+			}
+		}
+		
+		if (Piece == -1) {
+			Piece = irandom_range(1, 7);
+			PieceRotation = 0;
+		}
+		
+		switch (Piece) {
+			case 1:
+			case 5:
+			case 7:
+				if (PieceRotation > 1) {
+					PieceRotation = 0;
+				}
+				break;
+			case 2:
+				PieceRotation = 0;
+				break;
+			case 3:
+			case 4:
+			case 6:
+				if (PieceRotation > 3) {
+					PieceRotation = 0;
+				}
+				break;
+		}
+		
+		RecalculateShadow = true;
+		
+		if (MinX == room_width) {
+			MinX = floor(room_width / 2);
+		}
+		
+		switch (Piece) {
+			case 1:
+				switch (PieceRotation) {
+					case 0:
+						for (i=0; i<4; i++) {
+							Item = instance_create_layer(MinX + (i * 8), 2 * 8, "Instances", blockObj);
+							Item.image_index = 5;
+							Item.Inplay = true;
+						}
+						break;
+					case 1:
+						for (i=0; i<4; i++) {
+							Item = instance_create_layer(MinX + (3 * 8), (1 + i) * 8, "Instances", blockObj);
+							Item.image_index = 5;
+							Item.Inplay = true;
+						}
+						break;
+				}
+				break;
+			case 2:
+				for (i=0; i<2; i++) {
+					for (j=0; j<2; j++) {
+						Item = instance_create_layer(MinX + (i * 8), (2 + j) * 8, "Instances", blockObj);
+						Item.image_index = 5;
+						Item.Inplay = true;
+					}
+				}
+				break;
+			case 3:
+				if (PieceRotation == 0) {
+					MinX -= 8;
+				}
+
+				if (PieceRotation == 0 || PieceRotation == 2) {
+					for (i=0; i<3; i++) {
+						Item = instance_create_layer(MinX + (i * 8), (2 * 8), "Instances", blockObj);
+						Item.image_index = 5;
+						Item.Inplay = true;
+					}
+				} else {
+					for (i=0; i<3; i++) {
+						Item = instance_create_layer(MinX + (1 * 8), ((1 + i ) * 8), "Instances", blockObj);
+						Item.image_index = 5;
+						Item.Inplay = true;
+					}
+				}
+				
+				switch (PieceRotation) {
+					case 0:
+						Item = instance_create_layer(MinX + (2 * 8), (3 * 8), "Instances", blockObj);
+						Item.image_index = 5;
+						Item.Inplay = true;
+						break;
+					case 1:
+						Item = instance_create_layer(MinX + (0 * 8), (3 * 8), "Instances", blockObj);
+						Item.image_index = 5;
+						Item.Inplay = true;
+						break;
+					case 2:
+						Item = instance_create_layer(MinX + (0 * 8), (1 * 8), "Instances", blockObj);
+						Item.image_index = 5;
+						Item.Inplay = true;
+						break;
+					case 3:
+						Item = instance_create_layer(MinX + (2 * 8), (1 * 8), "Instances", blockObj);
+						Item.image_index = 5;
+						Item.Inplay = true;
+						break;
+				}
+				break;
+			case 4:
+				if (PieceRotation == 0) {
+					MinX -= 8;
+				}
+
+				if (PieceRotation == 0 || PieceRotation == 2) {
+					for (i=0; i<3; i++) {
+						Item = instance_create_layer(MinX + (i * 8), (2 * 8), "Instances", blockObj);
+						Item.image_index = 5;
+						Item.Inplay = true;
+					}
+				} else {
+					for (i=0; i<3; i++) {
+						Item = instance_create_layer(MinX + (1 * 8), ((1 + i ) * 8), "Instances", blockObj);
+						Item.image_index = 5;
+						Item.Inplay = true;
+					}
+				}
+				
+				switch (PieceRotation) {
+					case 0:
+						Item = instance_create_layer(MinX + (0 * 8), (3 * 8), "Instances", blockObj);
+						Item.image_index = 5;
+						Item.Inplay = true;
+						break;
+					case 1:
+						Item = instance_create_layer(MinX + (0 * 8), (1 * 8), "Instances", blockObj);
+						Item.image_index = 5;
+						Item.Inplay = true;
+						break;
+					case 2:
+						Item = instance_create_layer(MinX + (2 * 8), (1 * 8), "Instances", blockObj);
+						Item.image_index = 5;
+						Item.Inplay = true;
+						break;
+					case 3:
+						Item = instance_create_layer(MinX + (2 * 8), (3 * 8), "Instances", blockObj);
+						Item.image_index = 5;
+						Item.Inplay = true;
+						break;
+				}
+				break;
+			case 5:
+				if (PieceRotation == 0) {
+					MinX -= 8;
+				}
+				switch (PieceRotation) {
+					case 0:
+						for (i=0; i<2; i++) {
+							for (j=0; j<2; j++) {
+								Item = instance_create_layer(MinX + (((1-i)+j) * 8), (2 + i) * 8, "Instances", blockObj);
+								Item.image_index = 5;
+								Item.Inplay = true;
+							}
+						}
+						break;
+					case 1:
+						for (i=0; i<2; i++) {
+							for (j=0; j<2; j++) {
+								Item = instance_create_layer(MinX + ((1+i) * 8), (2 + i + j) * 8, "Instances", blockObj);
+								Item.image_index = 5;
+								Item.Inplay = true;
+							}
+						}
+						break;
+				}
+				break;
+			case 6:
+				if (PieceRotation == 0) {
+					MinX -= 8;
+				}
+
+				if (PieceRotation == 0 || PieceRotation == 2) {
+					for (i=0; i<3; i++) {
+						Item = instance_create_layer(MinX + (i * 8), (2 * 8), "Instances", blockObj);
+						Item.image_index = 5;
+						Item.Inplay = true;
+					}
+				} else {
+					for (i=0; i<3; i++) {
+						Item = instance_create_layer(MinX + (1 * 8), ((1 + i ) * 8), "Instances", blockObj);
+						Item.image_index = 5;
+						Item.Inplay = true;
+					}
+				}
+
+				switch (PieceRotation) {
+					case 0:
+						Item = instance_create_layer(MinX + (1 * 8), (3 * 8), "Instances", blockObj);
+						Item.image_index = 5;
+						Item.Inplay = true;
+						break;
+					case 1:
+						Item = instance_create_layer(MinX + (0 * 8), (2 * 8), "Instances", blockObj);
+						Item.image_index = 5;
+						Item.Inplay = true;
+						break;
+					case 2:
+						Item = instance_create_layer(MinX + (1 * 8), (1 * 8), "Instances", blockObj);
+						Item.image_index = 5;
+						Item.Inplay = true;
+						break;
+					case 3:
+						Item = instance_create_layer(MinX + (2 * 8), (2 * 8), "Instances", blockObj);
+						Item.image_index = 5;
+						Item.Inplay = true;
+						break;
+				}
+				break;
+				break;
+			case 7:
+				if (PieceRotation == 0) {
+					MinX -= 8;
+				}
+				switch (PieceRotation) {
+					case 0:
+						for (i=0; i<2; i++) {
+							for (j=0; j<2; j++) {
+								Item = instance_create_layer(MinX + ((i+j) * 8), (2 + i) * 8, "Instances", blockObj);
+								Item.image_index = 5;
+								Item.Inplay = true;
+							}
+						}
+						break;
+					case 1:
+						for (i=0; i<2; i++) {
+							for (j=0; j<2; j++) {
+								Item = instance_create_layer(MinX + ((1+i) * 8), ((2 - i) + j) * 8, "Instances", blockObj);
+								Item.image_index = 5;
+								Item.Inplay = true;
+							}
+						}
+						break;
+				}
+				break;
 		}
 	}
 
@@ -213,17 +474,19 @@ if (!Crash) {
 
 		for (i = 0; i < instance_number(blockObj); i++) {
 			Item = instance_find(blockObj, i);
-			var Pos = floor(Item.x / 8);
-			if (Item.Inplay) {
-				var ShadowBlock = instance_create_layer(Item.x, Item.y, "Instances", blockObj);
-				ShadowBlock.image_index = Item.image_index + 5;
-				ShadowBlock.Shadow = true;
-				if (Pos > 0 && Positions[Pos, 0] < Item.y) {
-					Positions[Pos, 0] = Item.y + 8;
-				}
-			} else if (!Item.Shadow) {
-				if (Pos > 0 && Positions[Pos, 1] > Item.y) {
-					Positions[Pos, 1] = Item.y;
+			if (!Item.Destroyable) {
+				var Pos = floor(Item.x / 8);
+				if (Item.Inplay) {
+					var ShadowBlock = instance_create_layer(Item.x, Item.y, "Instances", blockObj);
+					ShadowBlock.image_index = Item.image_index + 5;
+					ShadowBlock.Shadow = true;
+					if (Pos > 0 && Positions[Pos, 0] < Item.y) {
+						Positions[Pos, 0] = Item.y;
+					}
+				} else if (!Item.Shadow) {
+					if (Pos > 0 && Positions[Pos, 1] > Item.y) {
+						Positions[Pos, 1] = Item.y;
+					}
 				}
 			}
 		}
@@ -231,7 +494,7 @@ if (!Crash) {
 		DropY = room_height;
 		for (i = 0; i < room_width / 8; i++) {
 			if (Positions[i, 0] > 0) {
-				var Diff = Positions[i, 1] - Positions[i, 0];
+				var Diff = Positions[i, 1] - Positions[i, 0] - 8;
 				if (Diff > 0 && Diff < DropY) {
 					DropY = Diff;
 				}
