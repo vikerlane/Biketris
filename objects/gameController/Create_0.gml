@@ -16,4 +16,7 @@ Crash = false;
 Piece = -1;
 PieceRotation = -1;
 
+CamPosX = 0;
+CamPosY = 0;
+
 depth = -999;

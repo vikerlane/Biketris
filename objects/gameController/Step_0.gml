@@ -1,11 +1,14 @@
 TimePassed += delta_time;
 
 if (!Crash) {
+	
+	
+	
 	var MoveInplay = 0;
 	var i, j, Item;
 
 	var MaxX = 0;
-	var MinX = room_width;
+	var MinX = CamPosX + room_width + 8;
 
 	var UpdatePiece = false;
 	var RecalculateShadow = true;
@@ -32,11 +35,11 @@ if (!Crash) {
 
 	if (PreviousKeypress == false) {
 		if (keyboard_check(vk_left)) {
-			if (MinX > 8 * 5) {
+			if (MinX > CamPosX + 8 * 5) {
 				MoveInplay = -8;
 			}
 		} else if (keyboard_check(vk_right)) {
-			if (MaxX < room_width - 16) {
+			if (MaxX < CamPosX + room_width - 16) {
 				MoveInplay = 8;
 			}
 		} else if (keyboard_check(vk_up)) {
@@ -105,7 +108,7 @@ if (!Crash) {
 		RecalculateShadow = true;
 		
 		if (MinX == room_width) {
-			MinX = floor(room_width / 2);
+			MinX = 8 * 20;
 		}
 		
 		switch (Piece) {
@@ -315,7 +318,7 @@ if (!Crash) {
 		}
 	}
 
-	if (MinX < 8 * 4) {
+	if (MinX < CamPosX + 8 * 4) {
 		RecalculateShadow = true;
 	}
 
@@ -337,19 +340,27 @@ if (!Crash) {
 	}
 
 	if (TimePassed > TimeMax) {
+		
+		CamPosX += 1;
+		camera_set_view_pos(view_camera[0], CamPosX, CamPosY);
+		
+		biker.x += 1;
+		cityscape.x += 1;
+	
 		for (i=0; i < instance_number(blockObj); i++) {
 			Item = instance_find(blockObj, i);
-			Item.x -= 1;
-			if (Item.Inplay && MinX < 8 * 4) {
+			// Item.x -= 1;
+			if (Item.Inplay && MinX < CamPosX + 8 * 4) {
 				Item.x += 8;
 				RecalculateShadow = true;
 			}
-			if (Item.x < -Item.sprite_width) {
-				instance_create_layer(room_width, (8+irandom(5)) * Item.sprite_height, "Instances", blockObj);
+			if (Item.x+8 < CamPosX) {
+				instance_create_layer(CamPosX + room_width -1, (10+irandom(1)) * Item.sprite_height, "Instances", blockObj);
 				Item.Destroyable = true;
 				Item.image_alpha = 0;
 			}
 		}
+
 		TimePassed -= TimeMax;
 	
 		BikerMovesLeft--;
@@ -423,6 +434,8 @@ if (!Crash) {
 				biker.sprite_index = bikerSpr;
 			}
 			
+			Crash = false;
+			
 			/* show_debug_message(string(NextBelow1));
 			show_debug_message(string(NextBelow2));
 			show_debug_message(string(NextBelow3));
@@ -470,8 +483,8 @@ if (!Crash) {
 
 		for (i = 0; i < instance_number(blockObj); i++) {
 			Item = instance_find(blockObj, i);
-			if (!Item.Destroyable) {
-				var Pos = floor(Item.x / 8);
+			if (!Item.Destroyable && Item.x > CamPosX && Item.x < CamPosX + room_width) {
+				var Pos = floor((Item.x-CamPosX) / 8);
 				if (Item.Inplay) {
 					var ShadowBlock = instance_create_layer(Item.x, Item.y, "Instances", blockObj);
 					ShadowBlock.image_index = 2;
