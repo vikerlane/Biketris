@@ -42,7 +42,15 @@
             "Key": "06ddb395-17e7-4179-9333-d769a0a419ee",
             "Value": {
                 "id": "f0b1b15d-0d04-4249-ad7d-b363fb2e62a7",
-                "resourcePath": "sprites\\fuelSpr\\fuelSpr.yy",
+                "resourcePath": "sprites\\fuelcanSpr\\fuelcanSpr.yy",
+                "resourceType": "GMSprite"
+            }
+        },
+        {
+            "Key": "081053f6-a062-4ae6-b2d8-9bc83476ca25",
+            "Value": {
+                "id": "b42d6e81-7062-4cb1-9ed2-c891fb4bd3d1",
+                "resourcePath": "sprites\\palmtreesSpr\\palmtreesSpr.yy",
                 "resourceType": "GMSprite"
             }
         },
@@ -83,6 +91,14 @@
             "Value": {
                 "id": "1f8fb574-df06-4429-bec4-e741db111695",
                 "resourcePath": "objects\\cityscapeObj\\cityscapeObj.yy",
+                "resourceType": "GMObject"
+            }
+        },
+        {
+            "Key": "42ffdcf5-2d07-48d8-bee9-d887f4d4f92c",
+            "Value": {
+                "id": "abe4f656-c782-4ae6-9360-3b1c3ec8b428",
+                "resourcePath": "objects\\fuelcanObj\\fuelcanObj.yy",
                 "resourceType": "GMObject"
             }
         },
@@ -151,6 +167,14 @@
             }
         },
         {
+            "Key": "71cc402a-1bd3-42df-b546-05d717349cf2",
+            "Value": {
+                "id": "af14885a-0c66-413a-b7d1-28220ca7eb3e",
+                "resourcePath": "objects\\fuelCoverObj\\fuelCoverObj.yy",
+                "resourceType": "GMObject"
+            }
+        },
+        {
             "Key": "7299eba4-cf7b-4888-8e86-12403ed57937",
             "Value": {
                 "id": "0b4eeb97-b813-4dbd-bf78-6f12979ff3af",
@@ -164,6 +188,14 @@
                 "id": "1c9d80ad-6a3a-4ebb-b7d6-37e7cbdc26d3",
                 "resourcePath": "options\\html5\\options_html5.yy",
                 "resourceType": "GMHtml5Options"
+            }
+        },
+        {
+            "Key": "7b15aff6-dde9-48f8-ac98-85790c1613ec",
+            "Value": {
+                "id": "541327f8-37e7-4585-82e3-8314e11c6ffc",
+                "resourcePath": "sprites\\fuelCoverSpr\\fuelCoverSpr.yy",
+                "resourceType": "GMSprite"
             }
         },
         {
@@ -188,6 +220,30 @@
                 "id": "4f72a41b-effd-4c25-9f25-dd43838afdc4",
                 "resourcePath": "options\\ios\\options_ios.yy",
                 "resourceType": "GMiOSOptions"
+            }
+        },
+        {
+            "Key": "852810b2-94a3-4003-a02b-ba61bf95c633",
+            "Value": {
+                "id": "048a92fa-5509-412e-a877-5206f3a0045d",
+                "resourcePath": "sprites\\uiSpr\\uiSpr.yy",
+                "resourceType": "GMSprite"
+            }
+        },
+        {
+            "Key": "86181bf7-c5cd-450a-b7d7-0b8a59be4d0e",
+            "Value": {
+                "id": "32b1afb3-d63f-4caf-85ca-e1c8cb98023f",
+                "resourcePath": "objects\\fuelObj\\fuelObj.yy",
+                "resourceType": "GMObject"
+            }
+        },
+        {
+            "Key": "8779fd22-923f-420e-bd1c-59af4c33a703",
+            "Value": {
+                "id": "bdb38e7e-92ae-4e0c-aff9-954cf9939950",
+                "resourcePath": "objects\\palmtreesObj\\palmtreesObj.yy",
+                "resourceType": "GMObject"
             }
         },
         {
@@ -295,6 +351,14 @@
             }
         },
         {
+            "Key": "e08e3567-e1bd-4aa3-86ea-a594353161cd",
+            "Value": {
+                "id": "03adc1a8-8537-4d1e-bae2-f3bd7819bd08",
+                "resourcePath": "objects\\uiObj\\uiObj.yy",
+                "resourceType": "GMObject"
+            }
+        },
+        {
             "Key": "e42bf5cc-3f46-4d67-a6d0-a4885a11ac3f",
             "Value": {
                 "id": "7d734016-5822-47e0-9ee6-357f829f930c",
@@ -308,6 +372,14 @@
                 "id": "30181ba9-c770-46cf-b77a-c0f6bd3a0b33",
                 "resourcePath": "views\\f0b2d866-6649-4a4f-905a-5499f1089487.yy",
                 "resourceType": "GMFolder"
+            }
+        },
+        {
+            "Key": "f39445bd-f455-4c28-9b37-82cd2b20f686",
+            "Value": {
+                "id": "13e42195-1ddb-4580-a5b3-fbe0a12c3489",
+                "resourcePath": "sprites\\fuelSpr\\fuelSpr.yy",
+                "resourceType": "GMSprite"
             }
         },
         {

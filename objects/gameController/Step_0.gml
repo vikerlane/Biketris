@@ -1,9 +1,6 @@
 TimePassed += delta_time;
 
 if (!Crash) {
-	
-	
-	
 	var MoveInplay = 0;
 	var i, j, Item;
 
@@ -13,9 +10,26 @@ if (!Crash) {
 	var UpdatePiece = false;
 	var RecalculateShadow = true;
 	
+	if (ScoreDelta) {
+		DisplayScore += ScoreDelta;
+		if (Score <= DisplayScore) {
+			ScoreDelta = 0;
+			DisplayScore = Score;
+		}
+	}
+	
 	if (Piece == -1) {
 		UpdatePiece = true;
+		MinX = CamPosX + 8 * 15;
 	}
+	
+	if (KeypressCooldown != -1) {
+		KeypressCooldown -= 1;
+		if (KeypressCooldown == 0) {
+			PreviousKeypress = false;
+			KeypressCooldown = -1;
+		}
+	} 
 
 	for (i=0; i < instance_number(blockObj); i++) {
 		Item = instance_find(blockObj, i);
@@ -37,20 +51,24 @@ if (!Crash) {
 		if (keyboard_check(vk_left)) {
 			if (MinX > CamPosX + 8 * 5) {
 				MoveInplay = -8;
+				KeypressCooldown = 8;
 			}
 		} else if (keyboard_check(vk_right)) {
 			if (MaxX < CamPosX + room_width - 16) {
 				MoveInplay = 8;
+				KeypressCooldown = 8;
 			}
 		} else if (keyboard_check(vk_up)) {
 			PieceRotation += 1;
 			UpdatePiece = true;
 			PreviousKeypress = true;
+			KeypressCooldown = -1;
 		} else if (keyboard_check(vk_down)) {
 			Piece = -1;
 			UpdatePiece = true;
 			RecalculateShadow = true;
 			PreviousKeypress = true;
+			KeypressCooldown = -1;
 			for (i=0; i < instance_number(blockObj); i++) {
 				Item = instance_find(blockObj, i);
 				if (Item.Shadow) {
@@ -106,11 +124,7 @@ if (!Crash) {
 		}
 		
 		RecalculateShadow = true;
-		
-		if (MinX == room_width) {
-			MinX = 8 * 20;
-		}
-		
+
 		switch (Piece) {
 			case 1:
 				switch (PieceRotation) {
@@ -338,14 +352,25 @@ if (!Crash) {
 			}
 		}
 	}
+	
+	if (!PalmsMoved && TimePassed > TimeMax / 2) {
+		PalmsMoved = true;
+		for (i=0; i < instance_number(palmtreesObj); i++) {
+			Item = instance_find(palmtreesObj, i);
+			Item.x -= 1;
+		}
+	}
 
 	if (TimePassed > TimeMax) {
-		
+		PalmsMoved = false;	
 		CamPosX += 1;
 		camera_set_view_pos(view_camera[0], CamPosX, CamPosY);
 		
 		biker.x += 1;
 		cityscape.x += 1;
+		ui.x += 1;
+		fuel.x += 1;
+		fuelCover.x += 1;
 	
 		for (i=0; i < instance_number(blockObj); i++) {
 			Item = instance_find(blockObj, i);
@@ -355,7 +380,9 @@ if (!Crash) {
 				RecalculateShadow = true;
 			}
 			if (Item.x+8 < CamPosX) {
-				instance_create_layer(CamPosX + room_width -1, (10+irandom(1)) * Item.sprite_height, "Instances", blockObj);
+				if (irandom_range(1, 3) == 2) {
+					instance_create_layer(CamPosX + room_width - 1, (9+irandom_range(1, 4)) * Item.sprite_height, "Instances", blockObj);
+				}
 				Item.Destroyable = true;
 				Item.image_alpha = 0;
 			}
@@ -371,91 +398,101 @@ if (!Crash) {
 		// check if biker should react next step
 	
 		if (BikerMovesLeft < 1) {
+			LevelBlocks -= 1;
+			if (LevelBlocks < 1) {
+				Level += 1;
+				LevelBlocks = 15;
+				TimeMax *= 0.9;
+			}
 			Score += 10;
+			ScoreDelta = 1;
 			Fuel -= 1;
+			
+			var x1 = biker.x - 16;
+			var x2 = x1 + 8;
+			var x3 = x2 + 8;
+			var x4 = x3 + 8;
+			var y1 = biker.y - 16;
+			var y2 = y1 + 8;
+			var y3 = y2 + 8;
 
-			BikerMovesLeft = 8;
-			BikerY = 0;
+			var BlockA = -1;
+			var BlockB = -1;
+			var BlockC = -1;
+			var BlockD = -1;
+			var BlockE = -1;
+			var BlockF = -1;
 
-			var NextBlockX00 = biker.x-16;
-			var NextBlockX0 = biker.x-8;
-			var NextBlockX1 = biker.x;
-			var NextBlockX2 = biker.x+8;		
-			var NextBlockY1 = biker.y - 8;
-			var NextBlockY2 = biker.y;
-			var Next = -1;
-			var NextAfter = -1;
-			var NextBelow1 = -1;
-			var NextBelow2 = -1;
-			var NextBelow3 = -1;
 			for (i=0; i < instance_number(blockObj); i++) {
 				Item = instance_find(blockObj, i);
-				if (!Item.Shadow && !Item.Inplay) {
-					if (Item.y == NextBlockY1) {
-						if (Item.x == NextBlockX1) {
-							Next = Item.image_index;
-						} else if (Item.x == NextBlockX2) {
-							NextAfter = Item.image_index;
+				if (!Item.Destroyable && !Item.Shadow && !Item.Inplay) {
+					if (Item.y == y3) {
+						if (Item.x == x1) {
+							BlockF = 1;
+						} else if (Item.x == x2) {
+							BlockE = 1;
+						} else if (Item.x == x3) {
+							BlockD = 1;
 						}
-					} else if (Item.y == NextBlockY2) {
-						if (Item.x == NextBlockX00) {
-							NextBelow1 = 1;
-						} else if (Item.x == NextBlockX0) {
-							NextBelow2 = 1;
-						} else if (Item.x == NextBlockX1) {
-							NextBelow3 = 1;
+					} else if (Item.y == y2) {
+						if (Item.x == x3) {
+							BlockB = 1;
+						} else if (Item.x == x4) {
+							BlockC = 1;
 						}
+					} else if (Item.y == y1 && Item.x == x3) {
+						BlockA = 1;
 					}
 				}
 			}
+
+			if (fuelcan.x == biker.x) {
+				if ((fuelcan.y == biker.y && !BlockB) || fuelcan.y == biker.y-8) {
+					Fuel += 50;
+					if (Fuel > MaxFuel) {
+						Fuel = MaxFuel;
+					}
+					fuelcan.y = (6 + irandom_range(1, 6)) * 8;
+					fuelcan.x += (Level + irandom_range(20, 30)) * 8;
+				}
+			}
 			
-			// if bottom row, crash
-			// else if next is block
-			//    if not up, crash, else go up
-			// if bottom is solid
-			//    if up, go normal
+			if (Fuel >= 40) {
+				fuel.image_index = 0;
+			} else if (Fuel >= 20) {
+				fuel.image_index = 1;
+			} else {
+				fuel.image_index = 2;
+			}
+			fuelCover.image_xscale = round(-40 * (1 - (Fuel / MaxFuel)));
+
+			BikerMovesLeft = 8;
+			BikerY = 0;
 			
 			if (Fuel < 1) {
 				Crash = true;
 			} else if (biker.y >= room_height) {
 				Crash = true;
-			} else if (Next != -1) {
+			} else if (!BlockF && !BlockE) {
+				if (BlockD || BlockB) {
+					Crash = true;
+				} else {
+					biker.sprite_index = bikerSpr;
+					BikerY = 1;
+				}
+			} else if (BlockA) {
+				Crash = true;
+			} else if (BlockB) {
 				if (biker.sprite_index == bikerBoostSpr) {
 					BikerY = -1;
 				} else {
 					Crash = true;
 				}
-			} else if (NextAfter != -1) {
+			} else if (BlockC) {
 				biker.sprite_index = bikerBoostSpr;
-			} else if (NextBelow1 == -1 && NextBelow2 == -1) {
-				biker.sprite_index = bikerSpr;
-				BikerY = 1;
-			} else if (NextBelow1 != -1) {
+			} else if (BlockF) {
 				biker.sprite_index = bikerSpr;
 			}
-			
-			Crash = false;
-			
-			/* show_debug_message(string(NextBelow1));
-			show_debug_message(string(NextBelow2));
-			show_debug_message(string(NextBelow3));
-			show_debug_message(string(NextBlockX00));
-			show_debug_message(string(NextBlockY2));
-			game_end(); */
-			/*if (biker.y >= room_height) {
-				Crash = true;
-			} else if (Next != -1) {
-				Crash = true;
-			} else if (NextAfter != -1) {
-				BikerY = -1;
-				biker.sprite_index = bikerBoostSpr;
-			} else if (NextBelow1 == -1 && NextBelow2 == -1) {
-				/*if (NextBelow3 != -1) {
-					Crash = true;
-				} else  {
-					BikerY = 4;
-				}
-			} */
 		}
 	
 		if (Crash) {
