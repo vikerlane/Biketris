@@ -9,4 +9,4 @@ Duration = 50;
 StartValue = y;
 Change = -30;
 
-StopPosition = y + 6;
+StopPosition = y + 8;

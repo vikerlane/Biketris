@@ -41,3 +41,5 @@ DropPiece = false;
 if (!audio_is_playing(backgroundMsc)) {
 	audio_play_sound(backgroundMsc, 4, true);
 }
+
+RestartCooldown = 100;
