@@ -32,7 +32,8 @@
         "bd0c0d8e-fdf2-48d7-962d-50491462f45d",
         "86b7e944-21c1-4fb2-b1d4-2d2aa947ff5d",
         "ee1fc593-3e6f-4310-b3d6-c5cea2a1d2a0",
-        "a611e706-bdc3-4259-8198-86e4200098e4"
+        "a611e706-bdc3-4259-8198-86e4200098e4",
+        "05520b09-75d5-4b14-89b3-212d0fdf398c"
     ],
     "IsDnD": false,
     "layers": [
@@ -50,6 +51,7 @@
             "inheritSubLayers": false,
             "inheritVisibility": false,
             "instances": [
+{"name": "overlay","id": "05520b09-75d5-4b14-89b3-212d0fdf398c","colour": { "Value": 4294967295 },"creationCodeFile": "","creationCodeType": "","ignore": false,"inheritCode": false,"inheritItemSettings": false,"IsDnD": false,"m_originalParentID": "00000000-0000-0000-0000-000000000000","m_serialiseFrozen": false,"modelName": "GMRInstance","name_with_no_file_rename": "overlay","objId": "b47d8186-1d32-4fec-90ce-2d23ad623508","properties": null,"rotation": 0,"scaleX": 1,"scaleY": 1,"mvc": "1.0","x": 0,"y": 0},
 {"name": "game","id": "4fbe3f1c-5dc9-4a77-bc11-4aea38d1ff55","colour": { "Value": 4294967295 },"creationCodeFile": "","creationCodeType": "","ignore": false,"inheritCode": false,"inheritItemSettings": false,"IsDnD": false,"m_originalParentID": "00000000-0000-0000-0000-000000000000","m_serialiseFrozen": false,"modelName": "GMRInstance","name_with_no_file_rename": "game","objId": "a9f7d9e9-e787-43bb-b480-58dcf9d98527","properties": null,"rotation": 0,"scaleX": 1,"scaleY": 1,"mvc": "1.0","x": 0,"y": 0},
 {"name": "cityscape","id": "ce9036d4-4454-4e73-b8b6-a8ef4956f4d5","colour": { "Value": 4294967295 },"creationCodeFile": "","creationCodeType": "","ignore": false,"inheritCode": false,"inheritItemSettings": false,"IsDnD": false,"m_originalParentID": "00000000-0000-0000-0000-000000000000","m_serialiseFrozen": false,"modelName": "GMRInstance","name_with_no_file_rename": "cityscape","objId": "37cc074b-7562-4e71-8937-3c1c754924f1","properties": null,"rotation": 0,"scaleX": 1,"scaleY": 1,"mvc": "1.0","x": 0,"y": 0},
 {"name": "inst_21FBC65A","id": "8a5a03d1-c4f9-4971-ac3e-962d8dbcc910","colour": { "Value": 4294967295 },"creationCodeFile": "","creationCodeType": "","ignore": false,"inheritCode": false,"inheritItemSettings": false,"IsDnD": false,"m_originalParentID": "00000000-0000-0000-0000-000000000000","m_serialiseFrozen": false,"modelName": "GMRInstance","name_with_no_file_rename": "inst_21FBC65A","objId": "169afc3e-f8a0-4c23-9f27-3b5c049b7252","properties": null,"rotation": 0,"scaleX": 1,"scaleY": 1,"mvc": "1.0","x": 104,"y": 104},
@@ -137,12 +139,12 @@
     },
     "roomSettings":     {
         "id": "6f34f744-5b0f-4a00-972b-8ca63cf53d51",
-        "Height": 32,
+        "Height": 16,
         "inheritRoomSettings": false,
         "modelName": "GMRoomSettings",
         "persistent": false,
         "mvc": "1.0",
-        "Width": 32
+        "Width": 16
     },
     "mvc": "1.0",
     "views": [

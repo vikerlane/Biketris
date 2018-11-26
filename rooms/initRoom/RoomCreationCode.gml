@@ -9,7 +9,7 @@ for (var i = 1; i <= room_last; i++) {
 	}
 }
 
-window_set_position(100, 100); // comment out for HTML import
+// window_set_position(100, 100); // comment out for HTML import
 window_set_size(room_width * Scale, room_height * Scale);
 display_set_gui_size(room_width, room_height);
 

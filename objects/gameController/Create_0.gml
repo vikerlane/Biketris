@@ -1,10 +1,12 @@
 randomize();
 
+audio_play_sound(engineSnd, 1, true);
+
 Level = 1;
-LevelBlocks = 15;
+LevelBlocks = 16;
 
 TimePassed = 0.0;
-TimeMax = 1000000.0 / 6;
+TimeMax = 1000000.0 / 6.7;
 
 PreviousKeypress = false;
 KeypressCooldown = -1;
@@ -27,4 +29,15 @@ PieceRotation = -1;
 CamPosX = 0;
 CamPosY = 0;
 
-depth = -999;
+MinX = CamPosX + 8 * 15;
+MaxX = 0;
+
+depth = -850;
+
+UpdatePiece = false;
+RecalculateShadow = false;
+DropPiece = false;
+
+if (!audio_is_playing(backgroundMsc)) {
+	audio_play_sound(backgroundMsc, 4, true);
+}

@@ -4,12 +4,14 @@ if (!Crash) {
 	var MoveInplay = 0;
 	var i, j, Item;
 
-	var MaxX = 0;
-	var MinX = CamPosX + room_width + 8;
-
-	var UpdatePiece = false;
-	var RecalculateShadow = true;
+	UpdatePiece = false;
+	RecalculateShadow = false;
+	DropPiece = false;
 	
+	if (Piece == -1) {
+		UpdatePiece = true;
+	}
+
 	if (ScoreDelta) {
 		DisplayScore += ScoreDelta;
 		if (Score <= DisplayScore) {
@@ -18,83 +20,101 @@ if (!Crash) {
 		}
 	}
 	
-	if (Piece == -1) {
-		UpdatePiece = true;
-		MinX = CamPosX + 8 * 15;
-	}
+	if (Piece != -1) {
 	
-	if (KeypressCooldown != -1) {
-		KeypressCooldown -= 1;
-		if (KeypressCooldown == 0) {
-			PreviousKeypress = false;
-			KeypressCooldown = -1;
-		}
-	} 
+		if (KeypressCooldown != -1) {
+			KeypressCooldown -= 1;
+			if (KeypressCooldown == 0) {
+				PreviousKeypress = false;
+				KeypressCooldown = -1;
+			}
+		} 
 
-	for (i=0; i < instance_number(blockObj); i++) {
-		Item = instance_find(blockObj, i);
-		if (Item.Inplay) {
-			if (Item.x < MinX) {
-				MinX = Item.x;
-			}
-			if (Item.x > MaxX) {
-				MaxX = Item.x;
-			}
-		}
-	
-		if (Item.Shadow) {
-			RecalculateShadow = false;
-		}
-	}
-
-	if (PreviousKeypress == false) {
-		if (keyboard_check(vk_left)) {
-			if (MinX > CamPosX + 8 * 5) {
-				MoveInplay = -8;
-				KeypressCooldown = 8;
-			}
-		} else if (keyboard_check(vk_right)) {
-			if (MaxX < CamPosX + room_width - 16) {
-				MoveInplay = 8;
-				KeypressCooldown = 8;
-			}
-		} else if (keyboard_check(vk_up)) {
-			PieceRotation += 1;
-			UpdatePiece = true;
-			PreviousKeypress = true;
-			KeypressCooldown = -1;
-		} else if (keyboard_check(vk_down)) {
-			Piece = -1;
-			UpdatePiece = true;
-			RecalculateShadow = true;
-			PreviousKeypress = true;
-			KeypressCooldown = -1;
-			for (i=0; i < instance_number(blockObj); i++) {
-				Item = instance_find(blockObj, i);
-				if (Item.Shadow) {
-					Item.image_index = 0;
-					Item.Shadow = false;
-				} else if (Item.Inplay) {
-					Item.Inplay = false;
-					Item.image_alpha = 0;
-					Item.Destroyable = true;
+/*
+		// TO DO: this is not necessary if we keep MinX and MaxX values and update via keypresses, etc
+		for (i=0; i < instance_number(blockObj); i++) {
+			Item = instance_find(blockObj, i);
+			if (Item.Inplay) {
+				if (Item.x < MinX) {
+					MinX = Item.x;
+				}
+				if (Item.x > MaxX) {
+					MaxX = Item.x;
 				}
 			}
+	
+			if (Item.Shadow) {
+				RecalculateShadow = false;
+			}
 		}
-	} else {
-		if (keyboard_check(vk_nokey)) {
-			PreviousKeypress = false;
+*/
+
+		if (PreviousKeypress == false) {
+			if (keyboard_check(vk_left)) {
+				if (MinX > CamPosX + 8 * 5) {
+					MoveInplay = -8;
+					KeypressCooldown = 8;
+				}
+			} else if (keyboard_check(vk_right)) {
+				if (MaxX < CamPosX + room_width - 8) {
+					MoveInplay = 8;
+					KeypressCooldown = 8;
+				}
+			} else if (keyboard_check(vk_up)) {
+				PieceRotation += 1;
+				UpdatePiece = true;
+				PreviousKeypress = true;
+				KeypressCooldown = -1;
+			} else if (keyboard_check(vk_down)) {
+				Piece = -1;
+				UpdatePiece = true;
+				RecalculateShadow = true;
+				PreviousKeypress = true;
+				KeypressCooldown = -1;
+				DropPiece = true;
+/*
+				// TO DO: move this code in part UpdatePiece first runthrough
+				for (i=0; i < instance_number(blockObj); i++) {
+					Item = instance_find(blockObj, i);
+					if (Item.Shadow) {
+						Item.image_index = 0;
+						Item.Shadow = false;
+					} else if (Item.Inplay) {
+						Item.Inplay = false;
+						Item.image_alpha = 0;
+						Item.Destroyable = true;
+					}
+				}
+*/
+			}
+		} else {
+			if (keyboard_check(vk_nokey)) {
+				PreviousKeypress = false;
+			}
 		}
 	}
 	
+	if (MoveInplay != 0) {
+		MinX += MoveInplay;
+		MaxX += MoveInplay;
+	}
+
 	if (UpdatePiece) {
 		for (i=0; i < instance_number(blockObj); i++) {
 			Item = instance_find(blockObj, i);
-			if (Item.Inplay || Item.Shadow) {
+			if (Item.Inplay) {
 				Item.Inplay = false;
-				Item.Shadow = false;
 				Item.Destroyable = true;
 				Item.image_alpha = 0;
+			} else if (Item.Shadow) {
+				if (!DropPiece) {
+					Item.Inplay = false;
+					Item.Destroyable = true;
+					Item.image_alpha = 0;
+				} else {
+					Item.image_index = 0;
+					Item.Shadow = false;
+				}
 			}
 		}
 		
@@ -134,6 +154,7 @@ if (!Crash) {
 							Item.image_index = 1;
 							Item.Inplay = true;
 						}
+						MaxX = MinX + (4 * 8);
 						break;
 					case 1:
 						for (i=0; i<4; i++) {
@@ -141,6 +162,7 @@ if (!Crash) {
 							Item.image_index = 1;
 							Item.Inplay = true;
 						}
+						MaxX = MinX;
 						break;
 				}
 				break;
@@ -152,6 +174,7 @@ if (!Crash) {
 						Item.Inplay = true;
 					}
 				}
+				MaxX = MinX + (2 * 8);
 				break;
 			case 3:
 				if (PieceRotation == 0) {
@@ -164,12 +187,14 @@ if (!Crash) {
 						Item.image_index = 1;
 						Item.Inplay = true;
 					}
+					MaxX = MinX + (3 * 8);
 				} else {
 					for (i=0; i<3; i++) {
 						Item = instance_create_layer(MinX + (1 * 8), ((1 + i ) * 8), "Instances", blockObj);
 						Item.image_index = 1;
 						Item.Inplay = true;
 					}
+					MaxX = MinX + (2 * 8);
 				}
 				
 				switch (PieceRotation) {
@@ -206,12 +231,14 @@ if (!Crash) {
 						Item.image_index = 1;
 						Item.Inplay = true;
 					}
+					MaxX = MinX + (3 * 8);
 				} else {
 					for (i=0; i<3; i++) {
 						Item = instance_create_layer(MinX + (1 * 8), ((1 + i ) * 8), "Instances", blockObj);
 						Item.image_index = 1;
 						Item.Inplay = true;
 					}
+					MaxX = MinX + (2 * 8);
 				}
 				
 				switch (PieceRotation) {
@@ -250,6 +277,7 @@ if (!Crash) {
 								Item.Inplay = true;
 							}
 						}
+						MaxX = MinX + (3 * 8);
 						break;
 					case 1:
 						for (i=0; i<2; i++) {
@@ -259,6 +287,7 @@ if (!Crash) {
 								Item.Inplay = true;
 							}
 						}
+						MaxX = MinX + (2 * 8);
 						break;
 				}
 				break;
@@ -273,12 +302,14 @@ if (!Crash) {
 						Item.image_index = 1;
 						Item.Inplay = true;
 					}
+					MaxX = MinX + (3 * 8);
 				} else {
 					for (i=0; i<3; i++) {
 						Item = instance_create_layer(MinX + (1 * 8), ((1 + i ) * 8), "Instances", blockObj);
 						Item.image_index = 1;
 						Item.Inplay = true;
 					}
+					MaxX = MinX + (2 * 8);
 				}
 
 				switch (PieceRotation) {
@@ -317,6 +348,7 @@ if (!Crash) {
 								Item.Inplay = true;
 							}
 						}
+						MaxX = MinX + (3 * 8);
 						break;
 					case 1:
 						for (i=0; i<2; i++) {
@@ -326,16 +358,19 @@ if (!Crash) {
 								Item.Inplay = true;
 							}
 						}
+						MaxX = MinX + (2 * 8);
 						break;
 				}
 				break;
 		}
 	}
 
+	// TO DO: this should be part of inplay bump
 	if (MinX < CamPosX + 8 * 4) {
 		RecalculateShadow = true;
 	}
 
+	// TO DO: this looks like it's in wrong place / could piggy-back inside other loops
 	if (RecalculateShadow || MoveInplay != 0) {
 		if (MoveInplay != 0) {
 			PreviousKeypress = true;
@@ -372,13 +407,15 @@ if (!Crash) {
 		fuel.x += 1;
 		fuelCover.x += 1;
 	
+		var PushFromLeft = false;
 		for (i=0; i < instance_number(blockObj); i++) {
 			Item = instance_find(blockObj, i);
-			// Item.x -= 1;
+			// TO DO: this looks like could already happen as part of other loops
 			if (Item.Inplay && MinX < CamPosX + 8 * 4) {
 				Item.x += 8;
 				RecalculateShadow = true;
 			}
+			// TO DO: this looks like could already happen as part of other loops
 			if (Item.x+8 < CamPosX) {
 				if (irandom_range(1, 3) == 2) {
 					instance_create_layer(CamPosX + room_width - 1, (9+irandom_range(1, 4)) * Item.sprite_height, "Instances", blockObj);
@@ -386,6 +423,11 @@ if (!Crash) {
 				Item.Destroyable = true;
 				Item.image_alpha = 0;
 			}
+		}
+
+		if (MinX < CamPosX + 8 * 4) {
+			MinX += 8;
+			MaxX += 8;
 		}
 
 		TimePassed -= TimeMax;
@@ -401,13 +443,16 @@ if (!Crash) {
 			LevelBlocks -= 1;
 			if (LevelBlocks < 1) {
 				Level += 1;
-				LevelBlocks = 15;
-				TimeMax *= 0.9;
+				LevelBlocks = 13;
+				TimeMax *= 0.935;
 			}
 			Score += 10;
-			ScoreDelta = 1;
+			if (ScoreDelta < 1) {
+				ScoreDelta = 1;
+			}
 			Fuel -= 1;
 			
+			// TO DO: checking values could be part of initial loop?
 			var x1 = biker.x - 16;
 			var x2 = x1 + 8;
 			var x3 = x2 + 8;
@@ -447,16 +492,19 @@ if (!Crash) {
 			}
 
 			if (fuelcan.x == biker.x) {
-				if ((fuelcan.y == biker.y && !BlockB) || fuelcan.y == biker.y-8) {
-					Fuel += 50;
+				if (fuelcan.y >= biker.y - 8 && fuelcan.y <= biker.y+8) {
+					Fuel += 35;
 					if (Fuel > MaxFuel) {
 						Fuel = MaxFuel;
 					}
-					fuelcan.y = (6 + irandom_range(1, 6)) * 8;
-					fuelcan.x += (Level + irandom_range(20, 30)) * 8;
+					fuelcan.y = (5 + irandom_range(1, 7)) * 8;
+					fuelcan.x += (irandom_range(25, 30)) * 8;
+					Score += 100;
+					ScoreDelta = 11;
+					audio_play_sound(fuelPickupSnd, 5, false);
 				}
 			}
-			
+
 			if (Fuel >= 40) {
 				fuel.image_index = 0;
 			} else if (Fuel >= 20) {
@@ -490,6 +538,7 @@ if (!Crash) {
 				}
 			} else if (BlockC) {
 				biker.sprite_index = bikerBoostSpr;
+				audio_play_sound(boostSnd, 5, false);
 			} else if (BlockF) {
 				biker.sprite_index = bikerSpr;
 			}
@@ -507,9 +556,20 @@ if (!Crash) {
 					Item.image_alpha = 0;
 				}
 			}
+			
+			overlay.DeltaAlpha = 0.1;
+			overlay.x = CamPosX;
+			
+			instance_create_layer(0, 0, "Instances", bikerFlyingObj);
+			
+			audio_stop_sound(backgroundMsc);
+			audio_stop_sound(engineSnd);
+			audio_play_sound(screamSnd, 10, false);
+			audio_play_sound(crashSnd, 10, false);
 		}
 	}
 
+	// TO DO: this could probably live inside another loop
 	if (RecalculateShadow) {
 		var DropY = 0;
 		var Positions = [];

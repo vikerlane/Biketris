@@ -77,7 +77,7 @@
         }
     ],
     "origin": 9,
-    "originLocked": false,
+    "originLocked": true,
     "playbackSpeed": 2,
     "playbackSpeedType": 0,
     "premultiplyAlpha": false,
