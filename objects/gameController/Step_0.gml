@@ -437,7 +437,6 @@ if (!Crash) {
 				var BlockF = -1;
 				var BlockG = -1;
 
-
 				for (i=0; i < instance_number(blockObj); i++) {
 					Item = instance_find(blockObj, i);
 					if (!Item.Destroyable && !Item.Shadow && !Item.Inplay) {
@@ -536,7 +535,9 @@ if (!Crash) {
 				overlay.x = CamPosX;
 			
 				instance_create_layer(0, 0, "Instances", bikerFlyingObj);
-			
+				instance_create_layer(0, 0, "Instances", skullObj);
+				instance_create_layer(0, 0, "Instances", youloseObj);
+
 				audio_stop_sound(backgroundMsc);
 				audio_stop_sound(engineSnd);
 				audio_play_sound(screamSnd, 10, false);

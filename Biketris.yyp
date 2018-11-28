@@ -175,11 +175,27 @@
             }
         },
         {
+            "Key": "4341470f-0501-4e1d-b494-6ac4f68f1514",
+            "Value": {
+                "id": "ec1cf71c-7acc-4c8b-a0f1-7d2aa833e288",
+                "resourcePath": "objects\\skullObj\\skullObj.yy",
+                "resourceType": "GMObject"
+            }
+        },
+        {
             "Key": "470ccf3d-823c-409b-af17-48b82ae72fda",
             "Value": {
                 "id": "8796e392-f9f8-40cb-b455-a02c074d0d6d",
                 "resourcePath": "objects\\countdownObj\\countdownObj.yy",
                 "resourceType": "GMObject"
+            }
+        },
+        {
+            "Key": "4a2a018d-523c-4f88-852e-474fa78c5193",
+            "Value": {
+                "id": "2112e19b-e9b4-4940-8357-e49760334a83",
+                "resourcePath": "sprites\\skullSpr\\skullSpr.yy",
+                "resourceType": "GMSprite"
             }
         },
         {
@@ -367,6 +383,14 @@
             }
         },
         {
+            "Key": "887a0de6-4937-4341-b1cc-dd55af62e086",
+            "Value": {
+                "id": "91dcb341-99dd-45dd-8adc-3f1aa2a54960",
+                "resourcePath": "views\\887a0de6-4937-4341-b1cc-dd55af62e086.yy",
+                "resourceType": "GMFolder"
+            }
+        },
+        {
             "Key": "887eaa4d-413b-484a-ad35-bd28a358951b",
             "Value": {
                 "id": "76d79b9c-1e77-4674-b463-2cee0c008d7b",
@@ -396,6 +420,14 @@
                 "id": "c4a304c5-e185-4df2-9272-f95b0d2bc4a6",
                 "resourcePath": "views\\91491dad-389e-49b7-b2cd-270c872813bd.yy",
                 "resourceType": "GMFolder"
+            }
+        },
+        {
+            "Key": "92226af8-98a5-421f-86e7-2036eca40863",
+            "Value": {
+                "id": "b98db720-bfbc-48bf-a195-4ad576183a57",
+                "resourcePath": "sprites\\youloseSpr\\youloseSpr.yy",
+                "resourceType": "GMSprite"
             }
         },
         {
@@ -492,6 +524,14 @@
                 "id": "ad066f11-4cf6-4906-8167-3f7010358966",
                 "resourcePath": "views\\c4af25f7-f382-45af-80b3-2bf1efd2f8b5.yy",
                 "resourceType": "GMFolder"
+            }
+        },
+        {
+            "Key": "c591e1ef-e314-4da1-bdc5-10a1e47f30b1",
+            "Value": {
+                "id": "9273d0ab-e429-4c74-b2a3-57c0dd9a1555",
+                "resourcePath": "objects\\youloseObj\\youloseObj.yy",
+                "resourceType": "GMObject"
             }
         },
         {
