@@ -410,9 +410,12 @@ if (!Crash) {
 			if (BikerMovesLeft < 1) {
 				LevelBlocks -= 1;
 				if (LevelBlocks < 1) {
-					Level += 1;
-					LevelBlocks = 13;
-					TimeMax *= 0.935;
+					if (Level < MaxLevel-1) {
+						audio_play_sound(gearchangeSnd, 5, false);
+						Level += 1;
+						TimeMax = (BaseLevel + MaxLevel - Level) * TimeBase;
+						LevelBlocks = LevelBlockReset;
+					}
 				}
 				Score += 10;
 				if (ScoreDelta < 1) {
@@ -519,6 +522,13 @@ if (!Crash) {
 	
 			if (Crash) {
 				// game over
+				
+				var lastHighScore = highscore_value(1);
+				if (lastHighScore < Score) {
+					HighScore = true;
+					highscore_add("", Score);
+				}
+				
 				PreviousKeypress = false;
 				BikerY = 0;
 				biker.sprite_index = bikerCrashSpr;

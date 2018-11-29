@@ -575,6 +575,14 @@
             }
         },
         {
+            "Key": "df138f07-ed62-4ce4-bebf-c41ac051d7ad",
+            "Value": {
+                "id": "0a710bcc-ef75-422d-98a6-a9679f006715",
+                "resourcePath": "sounds\\gearchangeSnd\\gearchangeSnd.yy",
+                "resourceType": "GMSound"
+            }
+        },
+        {
             "Key": "e08e3567-e1bd-4aa3-86ea-a594353161cd",
             "Value": {
                 "id": "03adc1a8-8537-4d1e-bae2-f3bd7819bd08",

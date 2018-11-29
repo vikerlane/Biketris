@@ -2,11 +2,16 @@ randomize();
 
 audio_play_sound(engineSnd, 1, true);
 
+BaseLevel = 6;
 Level = 1;
-LevelBlocks = 16;
+MaxLevel = 11;
+LevelBlockReset = 25;
+LevelBlocks = LevelBlockReset;
 
 TimePassed = 0.0;
-TimeMax = 1000000.0 / 6.7;
+TimeBase = 6500;
+TimeMax = (BaseLevel + MaxLevel - Level) * TimeBase;
+// 1000000.0 / 6.7;
 
 PreviousKeypress = false;
 KeypressCooldown = -1;
@@ -43,3 +48,5 @@ if (!audio_is_playing(backgroundMsc)) {
 }
 
 RestartCooldown = 100;
+
+HighScore = false;
