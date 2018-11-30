@@ -14,4 +14,3 @@ window_set_size(room_width * Scale, room_height * Scale);
 display_set_gui_size(room_width, room_height);
 
 room_goto(room_next(room));
-

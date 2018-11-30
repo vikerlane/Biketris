@@ -135,6 +135,14 @@
             }
         },
         {
+            "Key": "1f78c063-2d2e-4658-aff6-4a46c10d256f",
+            "Value": {
+                "id": "daef2597-5a0b-4f12-9414-262fa5ea1029",
+                "resourcePath": "objects\\twitterObj\\twitterObj.yy",
+                "resourceType": "GMObject"
+            }
+        },
+        {
             "Key": "201ac266-286f-4543-98b9-e897ce7dd33c",
             "Value": {
                 "id": "4f01455b-afb9-41e6-9a97-056a689845d3",
@@ -163,6 +171,14 @@
             "Value": {
                 "id": "1f8fb574-df06-4429-bec4-e741db111695",
                 "resourcePath": "objects\\cityscapeObj\\cityscapeObj.yy",
+                "resourceType": "GMObject"
+            }
+        },
+        {
+            "Key": "38b0bfb2-731b-4226-b7e8-5357c06bbe68",
+            "Value": {
+                "id": "45b4f0ba-d74c-4527-b656-56b07c1e637f",
+                "resourcePath": "objects\\bikerWheelObj\\bikerWheelObj.yy",
                 "resourceType": "GMObject"
             }
         },
@@ -407,6 +423,14 @@
             }
         },
         {
+            "Key": "8c9a5dad-07d6-4125-887f-277ed997bacc",
+            "Value": {
+                "id": "efa583e9-0b2c-4ce5-9488-6e164405593a",
+                "resourcePath": "sprites\\bikerWheelSpr\\bikerWheelSpr.yy",
+                "resourceType": "GMSprite"
+            }
+        },
+        {
             "Key": "8d0bd7b5-44f4-4e6d-a3d2-6bf04e9def52",
             "Value": {
                 "id": "f7dd26fc-0839-412e-8a51-9d66c03a0fe4",
@@ -511,6 +535,14 @@
             }
         },
         {
+            "Key": "c28fbd91-5064-48f2-8bdb-241f74932b74",
+            "Value": {
+                "id": "8755dcff-fd5f-4fde-a033-e75c4ac68e24",
+                "resourcePath": "sprites\\twitterSpr\\twitterSpr.yy",
+                "resourceType": "GMSprite"
+            }
+        },
+        {
             "Key": "c30b7e54-57cc-4bb5-b600-03fc147882fd",
             "Value": {
                 "id": "af15dbf7-1cd0-4c94-b057-beb3df187897",
@@ -535,6 +567,22 @@
             }
         },
         {
+            "Key": "c7b8eeff-0ca8-4bb9-8c85-dd83b4c6e792",
+            "Value": {
+                "id": "befe345d-484a-4a31-a42a-3f13de3f1281",
+                "resourcePath": "sprites\\signsSpr\\signsSpr.yy",
+                "resourceType": "GMSprite"
+            }
+        },
+        {
+            "Key": "c8207dce-c7bc-4c80-ac74-e61198d3b140",
+            "Value": {
+                "id": "e2cda500-2dd2-49e6-9d84-7cf230fc0530",
+                "resourcePath": "sprites\\bikerStandingSpr\\bikerStandingSpr.yy",
+                "resourceType": "GMSprite"
+            }
+        },
+        {
             "Key": "cc98d028-7bdd-4680-85f3-c87a7baa481e",
             "Value": {
                 "id": "60b1f9a8-edf9-4cde-8ea4-3382f5da8211",
@@ -556,6 +604,14 @@
                 "id": "b3fc1655-7023-446e-b716-225002e5846f",
                 "resourcePath": "sprites\\bikerFlyingSpr\\bikerFlyingSpr.yy",
                 "resourceType": "GMSprite"
+            }
+        },
+        {
+            "Key": "d4fa6a45-7bb2-47cb-b6e4-78026ab8ef75",
+            "Value": {
+                "id": "28d997cf-bcb7-4654-b6b0-c5e50c2fbe5a",
+                "resourcePath": "objects\\signsObj\\signsObj.yy",
+                "resourceType": "GMObject"
             }
         },
         {

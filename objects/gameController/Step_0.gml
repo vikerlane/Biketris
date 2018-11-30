@@ -384,9 +384,9 @@ if (!Crash) {
 					RecalculateShadow = true;
 				}
 				// TO DO: this looks like could already happen as part of other loops
-				if (Item.x+8 < CamPosX) {
+				if (Item.x+8 == CamPosX) {
 					if (irandom_range(1, 3) == 2) {
-						instance_create_layer(CamPosX + room_width - 1, (9+irandom_range(1, 4)) * Item.sprite_height, "Instances", blockObj);
+						instance_create_layer(CamPosX + room_width, (9+irandom_range(1, 4)) * Item.sprite_height, "Instances", blockObj);
 					}
 					Item.Destroyable = true;
 					Item.image_alpha = 0;
@@ -406,7 +406,6 @@ if (!Crash) {
 			}
 	
 			// check if biker should react next step
-	
 			if (BikerMovesLeft < 1) {
 				LevelBlocks -= 1;
 				if (LevelBlocks < 1) {
@@ -431,6 +430,7 @@ if (!Crash) {
 				var y1 = biker.y - 16;
 				var y2 = y1 + 8;
 				var y3 = y2 + 8;
+				var xFinal = biker.x + room_width - (3 * 8);
 
 				var BlockA = -1;
 				var BlockB = -1;
@@ -439,6 +439,8 @@ if (!Crash) {
 				var BlockE = -1;
 				var BlockF = -1;
 				var BlockG = -1;
+				
+				var NextBlockY = room_height;
 
 				for (i=0; i < instance_number(blockObj); i++) {
 					Item = instance_find(blockObj, i);
@@ -462,6 +464,12 @@ if (!Crash) {
 						} else if (Item.y == y1 && Item.x == x3) {
 							BlockA = 1;
 						}
+						/*
+						else if (Item.x == xFinal) {
+							if (NextBlockY > Item.y) {
+								NextBlockY = Item.y;
+							}
+						}*/
 					}
 				}
 
@@ -473,8 +481,8 @@ if (!Crash) {
 						}
 						fuelcan.y = (5 + irandom_range(1, 7)) * 8;
 						fuelcan.x += (irandom_range(25, 30)) * 8;
-						Score += 100;
-						ScoreDelta = 11;
+						// Score += 100;
+						// ScoreDelta = 11;
 						audio_play_sound(fuelPickupSnd, 5, false);
 					}
 				}
@@ -518,40 +526,76 @@ if (!Crash) {
 				} else if (BlockF || BlockE) {
 					biker.sprite_index = bikerSpr;
 				}
-			}
 	
-			if (Crash) {
-				// game over
-				
-				var lastHighScore = highscore_value(1);
-				if (lastHighScore < Score) {
-					HighScore = true;
-					highscore_add("", Score);
-				}
-				
-				PreviousKeypress = false;
-				BikerY = 0;
-				biker.sprite_index = bikerCrashSpr;
+				// Crash = true;
+				if (Crash) {
+					// game over
+					if (PreviousHighScore < Score) {
+						HighScore = true;
+						highscore_add("", Score);
+					}
+
+					PreviousKeypress = false;
+					BikerY = 0;
+					biker.sprite_index = bikerCrashSpr;
 			
-				for (i=0; i < instance_number(blockObj); i++) {
-					Item = instance_find(blockObj, i);
-					if (Item.Shadow || Item.Inplay) {
-						Item.Destroyable = true;
-						Item.image_alpha = 0;
+					for (i=0; i < instance_number(blockObj); i++) {
+						Item = instance_find(blockObj, i);
+						if (Item.Shadow || Item.Inplay) {
+							Item.Destroyable = true;
+							Item.image_alpha = 0;
+						}
+					}
+			
+					overlay.DeltaAlpha = 0.1;
+					overlay.x = CamPosX;
+			
+					instance_create_layer(0, 0, "Instances", bikerFlyingObj);
+					instance_create_layer(0, 0, "Instances", skullObj);
+					instance_create_layer(0, 0, "Instances", youloseObj);
+					instance_create_layer(0, 0, "Instances", bikerWheelObj);
+
+					audio_stop_sound(backgroundMsc);
+					audio_stop_sound(engineSnd);
+					audio_play_sound(screamSnd, 10, false);
+					audio_play_sound(crashSnd, 10, false);
+					// url_open_ext("http://yoyogames.com", "_blank");
+				} else {
+					// check if score sign should be posted
+					if (Score < PreviousHighScore) {
+						var ScorePoint = PreviousHighScore - (((CamPosX/8)+24)*10);
+						switch (ScorePoint) {
+							case 5000:
+								var Item = instance_create_layer(CamPosX + room_width, NextBlockY, "Instances", signsObj);
+								Item.image_index = 1;
+								break;
+							case 3000:
+								var Item = instance_create_layer(CamPosX + room_width, NextBlockY, "Instances", signsObj);
+								Item.image_index = 2;
+								break;
+							case 2500:
+								var Item = instance_create_layer(CamPosX + room_width, NextBlockY, "Instances", signsObj);
+								Item.image_index = 3;
+								break;
+							case 1000:
+								var Item = instance_create_layer(CamPosX + room_width, NextBlockY, "Instances", signsObj);
+								Item.image_index = 4;
+								break;
+							case 500:
+								var Item = instance_create_layer(CamPosX + room_width, NextBlockY, "Instances", signsObj);
+								Item.image_index = 5;
+								break;
+							case 250:
+								var Item = instance_create_layer(CamPosX + room_width, NextBlockY, "Instances", signsObj);
+								Item.image_index = 6;
+								break;
+							case 0:
+								var Item = instance_create_layer(CamPosX + room_width, NextBlockY, "Instances", signsObj);
+								Item.image_index = 9;
+								break;
+						}
 					}
 				}
-			
-				overlay.DeltaAlpha = 0.1;
-				overlay.x = CamPosX;
-			
-				instance_create_layer(0, 0, "Instances", bikerFlyingObj);
-				instance_create_layer(0, 0, "Instances", skullObj);
-				instance_create_layer(0, 0, "Instances", youloseObj);
-
-				audio_stop_sound(backgroundMsc);
-				audio_stop_sound(engineSnd);
-				audio_play_sound(screamSnd, 10, false);
-				audio_play_sound(crashSnd, 10, false);
 			}
 		}
 
@@ -607,6 +651,9 @@ if (!Crash) {
 	// crash, innit
 	if (RestartCooldown > 0) {
 		RestartCooldown -= 1;
+		if (RestartCooldown == 0) {
+			instance_create_layer(CamPosX+133, 44, "Instances", twitterObj);
+		}
 	} else {
 		if (PreviousKeypress) {
 			if (keyboard_check(vk_nokey)) {

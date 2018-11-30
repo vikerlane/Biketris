@@ -22,14 +22,14 @@ if (!Crash) {
 	}
 	
 	if (HighScore) {
-		draw_text(64, 86, "NEW High Score");
+		draw_text(64, 80, "NEW High Score");
 	} else {
-		draw_text(74, 86, "Final Score");
+		draw_text(74, 80, "Final Score");
 	}
 
 	var ScoreString = string(DisplayScore);
 	ScoreString = string_repeat("0", 6 - string_length(ScoreString)) + ScoreString;
 
 	draw_set_font(scoreFnt);
-	draw_text(97, 99, ScoreString);
+	draw_text(97, 92, ScoreString);
 }

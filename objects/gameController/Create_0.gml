@@ -50,3 +50,4 @@ if (!audio_is_playing(backgroundMsc)) {
 RestartCooldown = 100;
 
 HighScore = false;
+PreviousHighScore = highscore_value(1);
