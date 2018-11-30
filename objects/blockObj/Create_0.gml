@@ -5,5 +5,6 @@ image_index = 0;
 Destroyable = false;
 Inplay = false;
 Shadow = false;
+ShadowNew = false;
 
 depth = -25;

@@ -51,3 +51,4 @@ RestartCooldown = 100;
 
 HighScore = false;
 PreviousHighScore = highscore_value(1);
+TwitterHTMLElement = false;

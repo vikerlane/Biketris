@@ -159,6 +159,14 @@
             }
         },
         {
+            "Key": "3077ae16-15fe-4d4f-9dc2-72e82227d823",
+            "Value": {
+                "id": "c4ca9f34-6c86-4463-849b-ccd45e6ea247",
+                "resourcePath": "sprites\\twitterHtmlSpr\\twitterHtmlSpr.yy",
+                "resourceType": "GMSprite"
+            }
+        },
+        {
             "Key": "3691a3be-3850-430a-baa5-271bd1f24e94",
             "Value": {
                 "id": "f843ce9a-c830-4546-af37-54eb9c205210",

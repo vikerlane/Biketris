@@ -334,7 +334,27 @@ if (!Crash) {
 		}
 
 		// TO DO: this should be part of inplay bump
+		/*
 		if (MinX < CamPosX + 8 * 4) {
+			RecalculateShadow = true;
+		}
+		*/
+		
+		var PushFromLeft = false;		
+			
+		var DropY = 0;
+		var Pos;
+		var Positions = [];
+		for (i = 0; i < room_width / 8; i++) {
+			Positions[i, 0] = 0;
+			Positions[i, 1] = room_height;
+		}
+	
+		if (MinX < CamPosX + 8 * 4) {
+			MinX += 8;
+			MaxX += 8;
+			MoveInplay += 8;
+			PushFromLeft = true;
 			RecalculateShadow = true;
 		}
 
@@ -349,23 +369,44 @@ if (!Crash) {
 				if (MoveInplay != 0 && Item.Inplay) {
 					Item.x += MoveInplay;
 				}
-				if (Item.Shadow) {
+				if (Item.Shadow && !Item.ShadowNew) {
 					Item.Destroyable = true;
 					Item.image_alpha = 0;
 				}
-			}
-		}
-	
-		if (!PalmsMoved && TimePassed > TimeMax / 2) {
-			PalmsMoved = true;
-			for (i=0; i < instance_number(palmtreesObj); i++) {
-				Item = instance_find(palmtreesObj, i);
-				Item.x -= 1;
+				if (Item.x+8 == CamPosX) {
+					if (irandom_range(1, 4) == 3) {
+						instance_create_layer(CamPosX + room_width, (9+irandom_range(1, 4)) * Item.sprite_height, "Instances", blockObj);
+					}
+					Item.Destroyable = true;
+					Item.image_alpha = 0;
+				}		
+				if (RecalculateShadow) {
+					if (!Item.Destroyable && Item.x > CamPosX && Item.x < CamPosX + room_width) {
+						Pos = floor((Item.x-CamPosX) / 8);
+						if (Item.Inplay) {
+							var ShadowBlock = instance_create_layer(Item.x, Item.y, "Instances", blockObj);
+							ShadowBlock.image_index = 2;
+							ShadowBlock.Shadow = true;
+							ShadowBlock.ShadowNew = true;
+							if (Pos > 0 && Positions[Pos, 0] < Item.y) {
+								Positions[Pos, 0] = Item.y;
+							}
+						} else if (!Item.Shadow) {
+							if (Pos > 0 && Positions[Pos, 1] > Item.y) {
+								Positions[Pos, 1] = Item.y;
+							}
+						}
+					}
+				}
 			}
 		}
 
 		if (TimePassed > TimeMax) {
-			PalmsMoved = false;	
+			for (i=0; i < instance_number(palmtreesObj); i++) {
+				Item = instance_find(palmtreesObj, i);
+				Item.x -= 1;
+			}
+
 			CamPosX += 1;
 			camera_set_view_pos(view_camera[0], CamPosX, CamPosY);
 		
@@ -373,30 +414,18 @@ if (!Crash) {
 			cityscape.x += 1;
 			ui.x += 1;
 			fuel.x += 1;
-			fuelCover.x += 1;
-	
-			var PushFromLeft = false;
+			fuelCover.x += 1;			
+
+			/*
 			for (i=0; i < instance_number(blockObj); i++) {
 				Item = instance_find(blockObj, i);
-				// TO DO: this looks like could already happen as part of other loops
-				if (Item.Inplay && MinX < CamPosX + 8 * 4) {
-					Item.x += 8;
-					RecalculateShadow = true;
-				}
-				// TO DO: this looks like could already happen as part of other loops
-				if (Item.x+8 == CamPosX) {
-					if (irandom_range(1, 3) == 2) {
-						instance_create_layer(CamPosX + room_width, (9+irandom_range(1, 4)) * Item.sprite_height, "Instances", blockObj);
-					}
-					Item.Destroyable = true;
-					Item.image_alpha = 0;
-				}
-			}
 
-			if (MinX < CamPosX + 8 * 4) {
-				MinX += 8;
-				MaxX += 8;
-			}
+				if (Item.Inplay && PushFromLeft) {
+					Item.x += 8;
+				}
+
+				
+			}*/
 
 			TimePassed -= TimeMax;
 	
@@ -600,33 +629,7 @@ if (!Crash) {
 		}
 
 		// TO DO: this could probably live inside another loop
-		if (RecalculateShadow) {
-			var DropY = 0;
-			var Positions = [];
-			for (i = 0; i < room_width / 8; i++) {
-				Positions[i, 0] = 0;
-				Positions[i, 1] = room_height;
-			}
-
-			for (i = 0; i < instance_number(blockObj); i++) {
-				Item = instance_find(blockObj, i);
-				if (!Item.Destroyable && Item.x > CamPosX && Item.x < CamPosX + room_width) {
-					var Pos = floor((Item.x-CamPosX) / 8);
-					if (Item.Inplay) {
-						var ShadowBlock = instance_create_layer(Item.x, Item.y, "Instances", blockObj);
-						ShadowBlock.image_index = 2;
-						ShadowBlock.Shadow = true;
-						if (Pos > 0 && Positions[Pos, 0] < Item.y) {
-							Positions[Pos, 0] = Item.y;
-						}
-					} else if (!Item.Shadow) {
-						if (Pos > 0 && Positions[Pos, 1] > Item.y) {
-							Positions[Pos, 1] = Item.y;
-						}
-					}
-				}
-			}
-	
+		if (RecalculateShadow) {	
 			DropY = room_height;
 			for (i = 0; i < room_width / 8; i++) {
 				if (Positions[i, 0] > 0) {
@@ -642,6 +645,7 @@ if (!Crash) {
 					Item = instance_find(blockObj, i);
 					if (Item.Shadow) {
 						Item.y += DropY;
+						Item.ShadowNew = false;
 					}
 				}
 			}
@@ -652,11 +656,17 @@ if (!Crash) {
 	if (RestartCooldown > 0) {
 		RestartCooldown -= 1;
 		if (RestartCooldown == 0) {
-			instance_create_layer(CamPosX+133, 44, "Instances", twitterObj);
+			instance_create_layer(CamPosX+136, 40, "Instances", twitterObj);
+			var Url = "https://twitter.com/intent/tweet?text=";
+			Url += "I%20just%20scored%20";
+			Url += string(game.DisplayScore);
+			Url += "%20in%20%23biketris%20at%20https%3A%2F%2Fvikerlane.itch.io%2Fbiketris";
+			TwitterHTMLElement = clickable_add_ext(137*3, 41*3, sprite_get_tpe(twitterHtmlSpr, 0), Url, "_blank", "", 1, 1);
 		}
 	} else {
 		if (PreviousKeypress) {
 			if (keyboard_check(vk_nokey)) {
+				clickable_delete(TwitterHTMLElement);
 				room_goto(gameRoom);
 			}
 		} else {
