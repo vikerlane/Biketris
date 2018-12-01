@@ -87,7 +87,15 @@ if (!Crash) {
 		
 			if (Piece == -1) {
 				Piece = irandom_range(1, 7);
-				PieceRotation = 0;
+				var Rotations = [];
+				Rotations[1] = 0;
+				Rotations[2] = 0;
+				Rotations[3] = 3;
+				Rotations[4] = 3;
+				Rotations[5] = 1;
+				Rotations[6] = 3;
+				Rotations[7] = 1;
+				PieceRotation = irandom_range(0, Rotations[Piece]);
 			}
 		
 			switch (Piece) {
@@ -660,7 +668,7 @@ if (!Crash) {
 			var Url = "https://twitter.com/intent/tweet?text=";
 			Url += "I%20just%20scored%20";
 			Url += string(game.DisplayScore);
-			Url += "%20in%20%23biketris%20at%20https%3A%2F%2Fvikerlane.itch.io%2Fbiketris";
+			Url += "%20in%20%23biketris%20an%20%23indiegame%20by%20%40TooOldTooCold%20Check%20it%20out%20at%20https%3A%2F%2Fvikerlane.itch.io%2Fbiketris";
 			TwitterHTMLElement = clickable_add_ext(137*3, 41*3, sprite_get_tpe(twitterHtmlSpr, 0), Url, "_blank", "", 1, 1);
 		}
 	} else {
