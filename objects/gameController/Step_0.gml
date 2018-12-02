@@ -31,22 +31,22 @@ if (!Crash) {
 			} 
 
 			if (PreviousKeypress == false) {
-				if (keyboard_check(vk_left)) {
+				if (keyboard_check(vk_left) || keyboard_check(ord("A"))) {
 					if (MinX > CamPosX + 8 * 5) {
 						MoveInplay = -8;
 						KeypressCooldown = 8;
 					}
-				} else if (keyboard_check(vk_right)) {
+				} else if (keyboard_check(vk_right) || keyboard_check(ord("D"))) {
 					if (MaxX < CamPosX + room_width - 8) {
 						MoveInplay = 8;
 						KeypressCooldown = 8;
 					}
-				} else if (keyboard_check(vk_up)) {
+				} else if (keyboard_check(vk_up) || keyboard_check(vk_space) || keyboard_check(ord("W"))) {
 					PieceRotation += 1;
 					UpdatePiece = true;
 					PreviousKeypress = true;
 					KeypressCooldown = -1;
-				} else if (keyboard_check(vk_down)) {
+				} else if (keyboard_check(vk_down) || keyboard_check(ord("S"))) {
 					Piece = -1;
 					UpdatePiece = true;
 					RecalculateShadow = true;
