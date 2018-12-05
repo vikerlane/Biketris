@@ -124,6 +124,7 @@ if (!Crash) {
 				case 1:
 					switch (PieceRotation) {
 						case 0:
+							MinX -= 2 * 8;
 							for (i=0; i<4; i++) {
 								Item = instance_create_layer(MinX + (i * 8), 2 * 8, "Instances", blockObj);
 								Item.image_index = 1;
@@ -132,7 +133,7 @@ if (!Crash) {
 							MaxX = MinX + (4 * 8);
 							break;
 						case 1:
-							MinX += 3 * 8;
+							MinX += 2 * 8;
 							for (i=0; i<4; i++) {
 								Item = instance_create_layer(MinX, (1 + i) * 8, "Instances", blockObj);
 								Item.image_index = 1;
@@ -153,10 +154,6 @@ if (!Crash) {
 					MaxX = MinX + (2 * 8);
 					break;
 				case 3:
-					if (PieceRotation == 0) {
-						MinX -= 8;
-					}
-
 					if (PieceRotation == 0 || PieceRotation == 2) {
 						for (i=0; i<3; i++) {
 							Item = instance_create_layer(MinX + (i * 8), (2 * 8), "Instances", blockObj);
@@ -197,10 +194,6 @@ if (!Crash) {
 					}
 					break;
 				case 4:
-					if (PieceRotation == 0) {
-						MinX -= 8;
-					}
-
 					if (PieceRotation == 0 || PieceRotation == 2) {
 						for (i=0; i<3; i++) {
 							Item = instance_create_layer(MinX + (i * 8), (2 * 8), "Instances", blockObj);
@@ -241,9 +234,6 @@ if (!Crash) {
 					}
 					break;
 				case 5:
-					if (PieceRotation == 0) {
-						MinX -= 8;
-					}
 					switch (PieceRotation) {
 						case 0:
 							for (i=0; i<2; i++) {
@@ -268,10 +258,6 @@ if (!Crash) {
 					}
 					break;
 				case 6:
-					if (PieceRotation == 0) {
-						MinX -= 8;
-					}
-
 					if (PieceRotation == 0 || PieceRotation == 2) {
 						for (i=0; i<3; i++) {
 							Item = instance_create_layer(MinX + (i * 8), (2 * 8), "Instances", blockObj);
@@ -312,9 +298,6 @@ if (!Crash) {
 					}
 					break;
 				case 7:
-					if (PieceRotation == 0) {
-						MinX -= 8;
-					}
 					switch (PieceRotation) {
 						case 0:
 							for (i=0; i<2; i++) {
@@ -340,13 +323,6 @@ if (!Crash) {
 					break;
 			}
 		}
-
-		// TO DO: this should be part of inplay bump
-		/*
-		if (MinX < CamPosX + 8 * 4) {
-			RecalculateShadow = true;
-		}
-		*/
 		
 		var PushFromLeft = false;		
 			
@@ -408,13 +384,20 @@ if (!Crash) {
 				}
 			}
 		}
-
-		if (TimePassed > TimeMax) {
+		
+		if (TimePassed > TreeCounter * (TimeMax / 4)) {
+			show_debug_message(string(TreeCounter)+" "+string(TimePassed)+" "+string(TimeMax)+" "+string(TreeCounter * (TimeMax / 4)));
+			TreeCounter += 1;
 			for (i=0; i < instance_number(palmtreesObj); i++) {
 				Item = instance_find(palmtreesObj, i);
-				Item.x -= 1;
+				Item.x -= 2;
 			}
+			if (TreeCounter == 4) {
+				TreeCounter = 0;
+			}
+		}
 
+		if (TimePassed > TimeMax) {
 			CamPosX += 1;
 			camera_set_view_pos(view_camera[0], CamPosX, CamPosY);
 		

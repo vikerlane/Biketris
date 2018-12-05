@@ -11,7 +11,6 @@ LevelBlocks = LevelBlockReset;
 TimePassed = 0.0;
 TimeBase = 6500;
 TimeMax = (BaseLevel + MaxLevel - Level) * TimeBase;
-// 1000000.0 / 6.7;
 
 PreviousKeypress = false;
 KeypressCooldown = -1;
@@ -52,3 +51,5 @@ RestartCooldown = 100;
 HighScore = false;
 PreviousHighScore = highscore_value(1);
 TwitterHTMLElement = false;
+
+TreeCounter = 0;
